@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime eSportS | Organizzazione Competitiva Brawl Stars</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Rajdhani (per titoli esports) e Inter (per testi leggibili) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        prm: {
+                            black: '#08080A',
+                            dark: '#101015',
+                            card: '#16161D',
+                            red: '#E61919',
+                            redHover: '#FF2A2A',
+                            green: '#00E676',
+                            greenDark: '#00B259',
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Effetti custom per stile eSports */
+        body {
+            background-color: #08080A;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            background-size: 40px 40px;
+        }
+
+        .glow-red {
+            box-shadow: 0 0 25px rgba(230, 25, 25, 0.35);
+        }
+
+        .glow-green {
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.25);
+        }
+
+        .text-gradient-tricolore {
+            background: linear-gradient(90deg, #00E676 0%, #FFFFFF 50%, #E61919 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .clip-esports {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+        }
+
+        /* Animazione leggera per il badge live */
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(0, 230, 118, 0.4); }
+            50% { border-color: rgba(0, 230, 118, 1); }
+        }
+        .animate-border-green {
+            animation: pulse-border 2.5s infinite;
+        }
+    </style>
+</head>
+<body class="bg-prm-black text-white antialiased selection:bg-prm-red selection:text-white">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-prm-black/90 backdrop-blur-md border-b border-white/10">
+        <!-- Linea sottile tricolore superiore -->
+        <div class="h-1 w-full flex">
+            <div class="w-1/3 bg-prm-green"></div>
+            <div class="w-1/3 bg-white"></div>
+            <div class="w-1/3 bg-prm-red"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Brand Tipografico -->
+                <a href="#" class="flex flex-col group">
+                    <span class="font-display font-extrabold text-2xl sm:text-3xl tracking-wide leading-none text-white group-hover:opacity-90 transition-opacity">
+                        PRIME <span class="text-prm-red">eSportS</span>
+                    </span>
+                    <span class="text-[10px] uppercase tracking-[0.25em] text-prm-green font-semibold mt-0.5">Brawl Stars Italy</span>
+                </a>
+
+                <!-- Menu Desktop -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="#chi-siamo" class="text-sm font-semibold uppercase tracking-wider text-gray-300 hover:text-prm-green transition-colors">Chi Siamo</a>
+                    <a href="#team" class="text-sm font-semibold uppercase tracking-wider text-gray-300 hover:text-white transition-colors">Il Team</a>
+                    <a href="#social" class="text-sm font-semibold uppercase tracking-wider text-gray-300 hover:text-prm-red transition-colors">I Nostri Social</a>
+                    <a href="#contattaci" class="px-5 py-2.5 rounded-lg bg-prm-red hover:bg-prm-redHover text-white font-display font-bold uppercase tracking-wider text-sm transition-all glow-red">
+                        Contattaci Ora
+                    </a>
+                </nav>
+
+                <!-- Bottone Menu Mobile -->
+                <button id="mobile-menu-btn" aria-label="Apri menu" class="md:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-prm-dark border-b border-white/10 px-4 pt-2 pb-6 space-y-3">
+            <a href="#chi-siamo" class="block py-2 text-base font-semibold uppercase tracking-wider text-gray-200 hover:text-prm-green">Chi Siamo</a>
+            <a href="#team" class="block py-2 text-base font-semibold uppercase tracking-wider text-gray-200 hover:text-white">Il Team</a>
+            <a href="#social" class="block py-2 text-base font-semibold uppercase tracking-wider text-gray-200 hover:text-prm-red">I Nostri Social</a>
+            <a href="#contattaci" class="block w-full text-center py-3 rounded-lg bg-prm-red text-white font-display font-bold uppercase tracking-wider">Contattaci Ora</a>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 bg-grid-pattern bg-grid overflow-hidden">
+        <!-- Luci di sfondo -->
+        <div class="absolute top-20 -left-32 w-96 h-96 bg-prm-green/15 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-10 -right-32 w-96 h-96 bg-prm-red/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border animate-border-green mb-6">
+                <span class="w-2 h-2 rounded-full bg-prm-green animate-ping"></span>
+                <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-gray-200">
+                    Competitive Brawl Stars Organization
+                </span>
+            </div>
+
+            <!-- Titolo Principale -->
+            <h1 class="font-display font-extrabold text-5xl sm:text-7xl md:text-8xl tracking-tight uppercase leading-none mb-6">
+                PRIME <span class="text-prm-red">eSportS</span>
+            </h1>
+
+            <!-- Sottotitolo -->
+            <p class="max-w-2xl mx-auto text-lg sm:text-2xl font-medium text-gray-300 mb-10 leading-relaxed">
+                Organizzazione competitiva italiana con <span class="text-prm-green font-semibold">obiettivi chiari</span> e <span class="text-white font-semibold underline decoration-prm-red decoration-2 underline-offset-4">precisi</span>.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#contattaci" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-prm-red hover:bg-prm-redHover text-white font-display font-bold text-lg uppercase tracking-wider transition-all transform hover:-translate-y-0.5 glow-red flex items-center justify-center gap-2">
+                    <span>Unisciti o Contattaci</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                </a>
+                <a href="#chi-siamo" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-white font-display font-bold text-lg uppercase tracking-wider transition-all">
+                    Scopri il Progetto
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CHI SIAMO ==================== -->
+    <section id="chi-siamo" class="py-20 bg-prm-dark border-y border-white/10 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Colonna Testo -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 text-prm-green font-display font-bold uppercase tracking-widest text-sm">
+                        <span class="w-8 h-0.5 bg-prm-green"></span>
+                        <span>Chi Siamo</span>
+                    </div>
+
+                    <h2 class="font-display font-extrabold text-3xl sm:text-5xl uppercase leading-tight">
+                        Organizzazione competitiva italiana con <span class="text-prm-red">obiettivi chiari e precisi</span>
+                    </h2>
+
+                    <p class="text-gray-300 text-base sm:text-lg leading-relaxed bg-prm-card/80 p-6 rounded-2xl border-l-4 border-prm-green shadow-xl">
+                        <strong class="text-white">Prime eSportS</strong> è un'organizzazione competitiva focalizzata su <strong class="text-prm-red">Brawl Stars</strong>. Nata per scalare le classifiche nazionali ed europee, composta dai migliori membri possibili da trovare per raggiungere tutti i nostri obiettivi!
+                    </p>
+
+                    <!-- Pilastri Chiave -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                        <div class="p-4 rounded-xl bg-prm-card border border-white/10">
+                            <div class="text-prm-green font-display font-bold text-xl uppercase">100% Italia</div>
+                            <div class="text-xs text-gray-400 mt-1">Identità e passione competitiva tricolore</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-prm-card border border-white/10">
+                            <div class="text-white font-display font-bold text-xl uppercase">Brawl Stars</div>
+                            <div class="text-xs text-gray-400 mt-1">Focus totale sul competitivo e tornei</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-prm-card border border-white/10">
+                            <div class="text-prm-red font-display font-bold text-xl uppercase">Top Roster</div>
+                            <div class="text-xs text-gray-400 mt-1">Selezioniamo solo i migliori talenti</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colonna Visual Card Esports -->
+                <div class="lg:col-span-5">
+                    <div class="relative p-1 rounded-2xl bg-gradient-to-br from-prm-green via-white/30 to-prm-red">
+                        <div class="bg-prm-black rounded-2xl p-8 text-center relative overflow-hidden">
+                            <span class="inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-widest text-prm-green mb-4">
+                                Competitive Division
+                            </span>
+                            <h3 class="font-display font-bold text-2xl sm:text-3xl uppercase tracking-wide text-white mb-3">
+                                ROAD TO WIN
+                            </h3>
+                            <p class="text-sm text-gray-400 mb-6">
+                                Determinazione, strategia, lavoro di squadra e mentalità vincente in ogni singolo match.
+                            </p>
+                            <div class="flex justify-center gap-2">
+                                <span class="h-2 w-12 rounded-full bg-prm-green"></span>
+                                <span class="h-2 w-12 rounded-full bg-white"></span>
+                                <span class="h-2 w-12 rounded-full bg-prm-red"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== IL TEAM & RUOLI ==================== -->
+    <section id="team" class="py-24 bg-prm-black relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Intestazione Sezione -->
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-prm-red font-display font-bold uppercase tracking-widest text-sm">Leadership & Roster</span>
+                <h2 class="font-display font-extrabold text-4xl sm:text-5xl uppercase mt-2">
+                    Il Team <span class="text-gradient-tricolore">Prime eSportS</span>
+                </h2>
+                <p class="text-gray-400 mt-3 text-sm sm:text-base">
+                    Le figure chiave che guidano, gestiscono e rappresentano la nostra organizzazione dentro e fuori dall'arena.
+                </p>
+            </div>
+
+            <!-- Grid Membri Principali -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- CARD 1: BERGATEK -->
+                <div class="group bg-prm-card rounded-2xl border border-white/10 hover:border-prm-red/70 transition-all duration-300 overflow-hidden shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <!-- Header Card -->
+                        <div class="h-24 bg-gradient-to-r from-prm-red/30 via-prm-dark to-prm-black border-b border-white/10 px-6 flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-md bg-prm-red text-white font-display font-bold text-xs uppercase tracking-widest">
+                                Owner
+                            </span>
+                            <span class="text-xs font-mono text-gray-400">#PRM_FOUNDER</span>
+                        </div>
+
+                        <div class="p-6 sm:p-8 -mt-10">
+                            <!-- Avatar -->
+                            <div class="w-20 h-20 rounded-2xl bg-prm-black border-2 border-prm-red flex items-center justify-center shadow-lg mb-4 group-hover:scale-105 transition-transform">
+                                <svg class="w-10 h-10 text-prm-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l3.057-3L12 4.5 15.943 0 19 3l-2 14H7L5 3zm2 16h10v2H7v-2z"></path>
+                                </svg>
+                            </div>
+
+                            <!-- Nome & Titolo -->
+                            <h3 class="font-display font-extrabold text-3xl text-white tracking-wide">BergaTek</h3>
+                            <p class="text-prm-red font-semibold text-sm uppercase tracking-wider mb-6">Owner — Prime eSportS</p>
+
+                            <!-- Ruoli -->
+                            <div class="space-y-2">
+                                <span class="text-xs font-bold uppercase tracking-wider text-gray-400 block mb-3">Ruoli & Responsabilità:</span>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1.5 rounded-lg bg-prm-red/15 border border-prm-red/40 text-white text-xs font-semibold">Founder</span>
+                                    <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/15 text-gray-200 text-xs font-semibold">Head Admin</span>
+                                    <span class="px-3 py-1.5 rounded-lg bg-prm-green/15 border border-prm-green/40 text-prm-green text-xs font-semibold">Player</span>
+                                    <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/15 text-gray-200 text-xs font-semibold">Organizer Event and Match</span>
+                                    <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/15 text-gray-200 text-xs font-semibold">Website Tecnic</span>
+                                    <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/15 text-gray-200 text-xs font-semibold">Supports</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-6 py-4 bg-black/40 border-t border-white/5 flex items-center justify-between text-xs text-gray-400">
+                        <span>Direzione Generale & Competitiva</span>
+                        <span class="text-prm-green font-semibold flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-prm-green"></span> Attivo
+                        </span>
+                    </div>
+                </div>
+
+                <!-- CARD 2: ETTORE -->
+                <div class="group bg-prm-card rounded-2xl border border-white/10 hover:border-prm-green/70 transition-all duration-300 overflow-hidden shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <!-- Header Card -->
+                        <div class="h-24 bg-gradient-to-r from-prm-green/25 via-prm-dark to-prm-black border-b border-white/10 px-6 flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-md bg-prm-green text-prm-black font-display font-extrabold text-xs uppercase tracking-widest">
+                                Head Staff
+                            </span>
+                            <span class="text-xs font-mono text-gray-400">#PRM_STAFF</span>
+                        </div>
+
+                        <div class="p-6 sm:p-8 -mt-10">
+                            <!-- Avatar -->
+                            <div class="w-20 h-20 rounded-2xl bg-prm-black border-2 border-prm-green flex items-center justify-center shadow-lg mb-4 group-hover:scale-105 transition-transform">
+                                <svg class="w-10 h-10 text-prm-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                            </div>
+
+                            <!-- Nome & Titolo -->
+                            <h3 class="font-display font-extrabold text-3xl text-white tracking-wide">Ettore</h3>
+                            <p class="text-prm-green font-semibold text-sm uppercase tracking-wider mb-6">Head Staff — Prime eSportS</p>
+
+                            <!-- Ruoli -->
+                            <div class="space-y-2">
+                                <span class="text-xs font-bold uppercase tracking-wider text-gray-400 block mb-3">Ruoli & Responsabilità:</span>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1.5 rounded-lg bg-prm-green/15 border border-prm-green/40 text-prm-green text-xs font-semibold">Head Staff</span>
+                                    <span class="px-3 py-1.5 rounded-lg bg-prm-red/15 border border-prm-red/40 text-white text-xs font-semibold">Player</span>
+                                    <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/15 text-gray-200 text-xs font-semibold">Community Admin</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-6 py-4 bg-black/40 border-t border-white/5 flex items-center justify-between text-xs text-gray-400">
+                        <span>Gestione Staff & Community</span>
+                        <span class="text-prm-green font-semibold flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-prm-green"></span> Attivo
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== I NOSTRI SOCIAL ==================== -->
+    <section id="social" class="py-20 bg-prm-dark border-y border-white/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-prm-green font-display font-bold uppercase tracking-widest text-sm">Resta Aggiornato</span>
+                <h2 class="font-display font-extrabold text-4xl sm:text-5xl uppercase mt-2">
+                    I Nostri <span class="text-prm-red">Social</span>
+                </h2>
+                <p class="text-gray-400 mt-3 text-sm sm:text-base">
+                    Seguici su tutte le piattaforme ufficiali per risultati, clip, annunci e per entrare nella nostra community Discord.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/prm_esports_bs/" target="_blank" rel="noopener noreferrer" class="group bg-prm-card p-6 rounded-2xl border border-white/10 hover:border-prm-red transition-all duration-300 flex flex-col items-center text-center hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-white/5 group-hover:bg-prm-red/20 flex items-center justify-center text-white group-hover:text-prm-red transition-colors mb-4">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-xl uppercase text-white">Instagram</h3>
+                    <p class="text-xs text-gray-400 mt-1 mb-4">@prm_esports_bs</p>
+                    <span class="mt-auto text-xs font-bold uppercase tracking-wider text-prm-red group-hover:underline">Seguici &rarr;</span>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@prm_esports_bs" target="_blank" rel="noopener noreferrer" class="group bg-prm-card p-6 rounded-2xl border border-white/10 hover:border-white transition-all duration-300 flex flex-col items-center text-center hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-white/5 group-hover:bg-white/15 flex items-center justify-center text-white transition-colors mb-4">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-xl uppercase text-white">TikTok</h3>
+                    <p class="text-xs text-gray-400 mt-1 mb-4">@prm_esports_bs</p>
+                    <span class="mt-auto text-xs font-bold uppercase tracking-wider text-white group-hover:underline">Guarda i Video &rarr;</span>
+                </a>
+
+                <!-- Discord -->
+                <a href="https://discord.gg/vW3MqYttgK" target="_blank" rel="noopener noreferrer" class="group bg-prm-card p-6 rounded-2xl border border-white/10 hover:border-prm-green transition-all duration-300 flex flex-col items-center text-center hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-white/5 group-hover:bg-prm-green/20 flex items-center justify-center text-white group-hover:text-prm-green transition-colors mb-4">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-xl uppercase text-white">Discord</h3>
+                    <p class="text-xs text-gray-400 mt-1 mb-4">Server Ufficiale PRM</p>
+                    <span class="mt-auto text-xs font-bold uppercase tracking-wider text-prm-green group-hover:underline">Entra Ora &rarr;</span>
+                </a>
+
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@prmesports-official" target="_blank" rel="noopener noreferrer" class="group bg-prm-card p-6 rounded-2xl border border-white/10 hover:border-prm-red transition-all duration-300 flex flex-col items-center text-center hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-xl bg-white/5 group-hover:bg-prm-red/20 flex items-center justify-center text-white group-hover:text-prm-red transition-colors mb-4">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-xl uppercase text-white">YouTube</h3>
+                    <p class="text-xs text-gray-400 mt-1 mb-4">@prmesports-official</p>
+                    <span class="mt-auto text-xs font-bold uppercase tracking-wider text-prm-red group-hover:underline">Iscriviti &rarr;</span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTATTACI ORA ==================== -->
+    <section id="contattaci" class="py-24 bg-prm-black relative">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-prm-red font-display font-bold uppercase tracking-widest text-sm">Supporto & Candidature</span>
+                <h2 class="font-display font-extrabold text-4xl sm:text-5xl uppercase mt-2">
+                    Contattaci <span class="text-prm-green">Ora</span>
+                </h2>
+                <p class="text-gray-400 mt-3 text-sm sm:text-base">
+                    Compila tutti i campi obbligatori qui sotto per inviare la tua richiesta direttamente allo staff di Prime eSportS.
+                </p>
+            </div>
+
+            <!-- Form Container -->
+            <div class="bg-prm-card p-6 sm:p-10 rounded-2xl border border-white/15 shadow-2xl relative overflow-hidden">
+                <!-- Accent bar superiore -->
+                <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-prm-green via-white to-prm-red"></div>
+
+                <form id="contact-form" class="space-y-6">
+                    
+                    <!-- Campo 1: NickName / Nome -->
+                    <div>
+                        <label for="nickname" class="block text-sm font-semibold text-gray-200 mb-2">
+                            1. NickName / Nome <span class="text-prm-red">*</span>
+                        </label>
+                        <input type="text" id="nickname" name="nickname" required
+                            placeholder="Es. ProPlayer_IT / Marco"
+                            class="w-full px-4 py-3.5 rounded-xl bg-prm-black border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-prm-green transition-colors">
+                    </div>
+
+                    <!-- Campo 2 & 3: Opzione di contatto + Recapito -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="contact-method" class="block text-sm font-semibold text-gray-200 mb-2">
+                                2. Opzione di contatto <span class="text-prm-red">*</span>
+                            </label>
+                            <select id="contact-method" name="contact-method" required
+                                class="w-full px-4 py-3.5 rounded-xl bg-prm-black border border-white/15 text-white focus:outline-none focus:border-prm-green transition-colors">
+                                <option value="Discord Username">Discord Username</option>
+                                <option value="Email">Email</option>
+                                <option value="Numero di Telefono">Numero di Telefono</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="contact-value" id="contact-value-label" class="block text-sm font-semibold text-gray-200 mb-2">
+                                3. Il tuo Discord Username <span class="text-prm-red">*</span>
+                            </label>
+                            <input type="text" id="contact-value" name="contact-value" required
+                                placeholder="Es. utente#0000 o username"
+                                class="w-full px-4 py-3.5 rounded-xl bg-prm-black border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-prm-green transition-colors">
+                        </div>
+                    </div>
+
+                    <!-- Campo 4: Motivo del messaggio -->
+                    <div>
+                        <label for="reason" class="block text-sm font-semibold text-gray-200 mb-2">
+                            4. Motivo del messaggio <span class="text-prm-red">*</span>
+                        </label>
+                        <select id="reason" name="reason" required
+                            class="w-full px-4 py-3.5 rounded-xl bg-prm-black border border-white/15 text-white focus:outline-none focus:border-prm-red transition-colors">
+                            <option value="" disabled selected>-- Seleziona il motivo --</option>
+                            <option value="Candidatura team">Candidatura team</option>
+                            <option value="Supporto tecnico">Supporto tecnico</option>
+                            <option value="Richiesta scrim o friendly match">Richiesta scrim o friendly match</option>
+                            <option value="Sponsor/partnership">Sponsor/partnership</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                    </div>
+
+                    <!-- Dettagli aggiuntivi (opzionale ma utile per lo staff) -->
+                    <div>
+                        <label for="details" class="block text-sm font-semibold text-gray-200 mb-2">
+                            Dettagli della richiesta <span class="text-gray-500 font-normal">(Consigliato)</span>
+                        </label>
+                        <textarea id="details" name="details" rows="3"
+                            placeholder="Scrivi qui eventuali informazioni aggiuntive (trofei, esperienza competitiva, orari scrim, ecc.)..."
+                            class="w-full px-4 py-3 rounded-xl bg-prm-black border border-white/15 text-white placeholder-gray-500 focus:outline-none focus:border-prm-green transition-colors resize-none"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                        class="w-full py-4 rounded-xl bg-prm-red hover:bg-prm-redHover text-white font-display font-bold text-lg uppercase tracking-wider transition-all glow-red flex items-center justify-center gap-2 cursor-pointer">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        <span>Invia Richiesta allo Staff</span>
+                    </button>
+                </form>
+
+                <!-- Messaggio di conferma invio -->
+                <div id="form-feedback" class="hidden mt-6 p-4 rounded-xl bg-prm-green/15 border border-prm-green text-prm-green text-sm font-semibold flex items-center gap-3">
+                    <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>Richiesta inviata con successo! Lo staff di Prime eSportS ti ricontatterà al più presto.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER & ACCESSO STAFF ==================== -->
+    <footer class="bg-prm-dark border-t border-white/10 pt-12 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-white/10">
+                <div>
+                    <span class="font-display font-bold text-xl tracking-wide text-white">PRIME <span class="text-prm-red">eSportS</span></span>
+                    <p class="text-xs text-gray-400 mt-1">Organizzazione Competitiva Italiana Brawl Stars</p>
+                </div>
+
+                <!-- Bottone Area Riservata Staff -->
+                <button id="open-staff-btn" type="button"
+                    class="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 hover:border-prm-red/60 text-gray-300 hover:text-white text-xs font-semibold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer">
+                    <svg class="w-4 h-4 text-prm-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    <span>Area Riservata Staff</span>
+                </button>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+                <p>&copy; <span id="year"></span> Prime eSportS. Tutti i diritti riservati.</p>
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-2 bg-prm-green inline-block rounded-xs"></span>
+                    <span class="w-3 h-2 bg-white inline-block rounded-xs"></span>
+                    <span class="w-3 h-2 bg-prm-red inline-block rounded-xs"></span>
+                    <span class="ml-1">Made for Brawl Stars Italy</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODALE LOGIN & DASHBOARD STAFF ==================== -->
+    <div id="staff-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-prm-card w-full max-w-3xl rounded-2xl border border-white/15 shadow-2xl overflow-hidden my-8">
+            
+            <!-- Header Modale -->
+            <div class="px-6 py-4 bg-prm-black border-b border-white/10 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-prm-red"></span>
+                    <h3 class="font-display font-bold text-xl uppercase tracking-wider text-white">Pannello Controllo Staff</h3>
+                </div>
+                <button id="close-staff-modal" type="button" class="text-gray-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- SCHERMATA 1: INSERIMENTO PASSWORD (Password nascosta e non suggerita) -->
+            <div id="staff-login-view" class="p-8 text-center max-w-md mx-auto">
+                <div class="w-16 h-16 mx-auto mb-5 rounded-2xl bg-prm-red/15 border border-prm-red/40 flex items-center justify-center text-prm-red">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                </div>
+                <h4 class="font-display font-bold text-2xl uppercase text-white mb-2">Accesso Riservato</h4>
+                <p class="text-sm text-gray-400 mb-6">
+                    Inserisci la password dello staff di Prime eSportS per visualizzare i messaggi ricevuti.
+                </p>
+
+                <form id="staff-login-form" class="space-y-4">
+                    <div>
+                        <input type="password" id="staff-password-input" autocomplete="off" required
+                            placeholder="••••••••"
+                            class="w-full px-4 py-3.5 rounded-xl bg-prm-black border border-white/20 text-center text-white tracking-widest text-lg focus:outline-none focus:border-prm-red">
+                    </div>
+                    <p id="staff-login-error" class="hidden text-xs font-semibold text-prm-red">
+                        Password errata. Accesso negato.
+                    </p>
+                    <button type="submit"
+                        class="w-full py-3.5 rounded-xl bg-prm-red hover:bg-prm-redHover text-white font-display font-bold uppercase tracking-wider transition-all cursor-pointer">
+                        Sblocca Elenco Messaggi
+                    </button>
+                </form>
+            </div>
+
+            <!-- SCHERMATA 2: ELENCO MESSAGGI RICEVUTI -->
+            <div id="staff-dashboard-view" class="hidden p-6 sm:p-8">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-6 border-b border-white/10">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-prm-green">Autenticato come Staff</span>
+                        <h4 class="font-display font-bold text-2xl text-white uppercase">Messaggi Ricevuti (<span id="messages-count">0</span>)</h4>
+                    </div>
+                    <button id="staff-logout-btn" type="button"
+                        class="px-4 py-2 rounded-lg bg-white/5 hover:bg-prm-red/20 border border-white/15 hover:border-prm-red text-xs font-semibold text-gray-300 hover:text-white uppercase tracking-wider transition-colors cursor-pointer self-start sm:self-auto">
+                        Blocca ed Esci
+                    </button>
+                </div>
+
+                <!-- Lista Messaggi -->
+                <div id="messages-list" class="space-y-4 max-h-[60vh] overflow-y-auto pr-1">
+                    <!-- Popolato dinamicamente via JavaScript -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Anno corrente nel footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // Toggle Menu Mobile
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Chiudi menu mobile al click su un link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+
+            // Aggiornamento dinamico label/placeholder del contatto scelto
+            const contactMethodSelect = document.getElementById('contact-method');
+            const contactValueLabel = document.getElementById('contact-value-label');
+            const contactValueInput = document.getElementById('contact-value');
+
+            contactMethodSelect.addEventListener('change', (e) => {
+                const method = e.target.value;
+                if (method === 'Discord Username') {
+                    contactValueLabel.innerHTML = '3. Il tuo Discord Username <span class="text-prm-red">*</span>';
+                    contactValueInput.type = 'text';
+                    contactValueInput.placeholder = 'Es. utente#0000 o username';
+                } else if (method === 'Email') {
+                    contactValueLabel.innerHTML = '3. Il tuo indirizzo Email <span class="text-prm-red">*</span>';
+                    contactValueInput.type = 'email';
+                    contactValueInput.placeholder = 'Es. nome@email.it';
+                } else if (method === 'Numero di Telefono') {
+                    contactValueLabel.innerHTML = '3. Il tuo Numero di Telefono <span class="text-prm-red">*</span>';
+                    contactValueInput.type = 'tel';
+                    contactValueInput.placeholder = 'Es. +39 333 1234567';
+                }
+            });
+
+            // ==================== GESTIONE STORAGE MESSAGGI ====================
+            const STORAGE_KEY = 'prime_esports_messages_v1';
+
+            // Inizializza con un messaggio di esempio se lo storage è vuoto (per test immediato)
+            function getMessages() {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) {
+                    const initialSample = [
+                        {
+                            id: 'sample-1',
+                            nickname: 'SpikeMaster_IT',
+                            contactMethod: 'Discord Username',
+                            contactValue: 'spikemaster_it',
+                            reason: 'Candidatura team',
+                            details: 'Ciao! Ho 68.000 trofei, grado Leggendario in Classificata e cerco un team competitivo serio per tornei mensili.',
+                            date: '12/11/2026, 18:30'
+                        }
+                    ];
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(initialSample));
+                    return initialSample;
+                }
+                try {
+                    return JSON.parse(raw);
+                } catch {
+                    return [];
+                }
+            }
+
+            function saveMessages(messages) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+            }
+
+            // Gestione invio Form "Contattaci Ora"
+            const contactForm = document.getElementById('contact-form');
+            const formFeedback = document.getElementById('form-feedback');
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const nickname = document.getElementById('nickname').value.trim();
+                const contactMethod = document.getElementById('contact-method').value;
+                const contactValue = document.getElementById('contact-value').value.trim();
+                const reason = document.getElementById('reason').value;
+                const details = document.getElementById('details').value.trim();
+
+                if (!nickname || !contactMethod || !contactValue || !reason) return;
+
+                const now = new Date();
+                const formattedDate = now.toLocaleDateString('it-IT') + ', ' + now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+
+                const newMessage = {
+                    id: 'msg-' + Date.now(),
+                    nickname,
+                    contactMethod,
+                    contactValue,
+                    reason,
+                    details: details || 'Nessun dettaglio aggiuntivo inserito.',
+                    date: formattedDate
+                };
+
+                const messages = getMessages();
+                messages.unshift(newMessage);
+                saveMessages(messages);
+
+                contactForm.reset();
+                contactValueLabel.innerHTML = '3. Il tuo Discord Username <span class="text-prm-red">*</span>';
+                contactValueInput.type = 'text';
+                contactValueInput.placeholder = 'Es. utente#0000 o username';
+
+                formFeedback.classList.remove('hidden');
+                setTimeout(() => {
+                    formFeedback.classList.add('hidden');
+                }, 6000);
+            });
+
+            // ==================== AREA RISERVATA STAFF ====================
+            const STAFF_SECRET = 'PRM2027';
+
+            const openStaffBtn = document.getElementById('open-staff-btn');
+            const closeStaffModalBtn = document.getElementById('close-staff-modal');
+            const staffModal = document.getElementById('staff-modal');
+            const staffLoginView = document.getElementById('staff-login-view');
+            const staffDashboardView = document.getElementById('staff-dashboard-view');
+            const staffLoginForm = document.getElementById('staff-login-form');
+            const staffPasswordInput = document.getElementById('staff-password-input');
+            const staffLoginError = document.getElementById('staff-login-error');
+            const staffLogoutBtn = document.getElementById('staff-logout-btn');
+            const messagesListContainer = document.getElementById('messages-list');
+            const messagesCountSpan = document.getElementById('messages-count');
+
+            function resetStaffModalToLogin() {
+                staffPasswordInput.value = '';
+                staffLoginError.classList.add('hidden');
+                staffDashboardView.classList.add('hidden');
+                staffLoginView.classList.remove('hidden');
+            }
+
+            openStaffBtn.addEventListener('click', () => {
+                resetStaffModalToLogin();
+                staffModal.classList.remove('hidden');
+                setTimeout(() => staffPasswordInput.focus(), 100);
+            });
+
+            closeStaffModalBtn.addEventListener('click', () => {
+                staffModal.classList.add('hidden');
+                resetStaffModalToLogin();
+            });
+
+            // Chiudi modale cliccando fuori dal box
+            staffModal.addEventListener('click', (e) => {
+                if (e.target === staffModal) {
+                    staffModal.classList.add('hidden');
+                    resetStaffModalToLogin();
+                }
+            });
+
+            staffLogoutBtn.addEventListener('click', () => {
+                resetStaffModalToLogin();
+            });
+
+            // Verifica Password Staff
+            staffLoginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const enteredPassword = staffPasswordInput.value;
+
+                if (enteredPassword === STAFF_SECRET) {
+                    staffLoginError.classList.add('hidden');
+                    staffPasswordInput.value = '';
+                    staffLoginView.classList.add('hidden');
+                    staffDashboardView.classList.remove('hidden');
+                    renderMessagesList();
+                } else {
+                    staffLoginError.classList.remove('hidden');
+                    staffPasswordInput.value = '';
+                    staffPasswordInput.focus();
+                }
+            });
+
+            // Funzione per renderizzare l'elenco dei messaggi nella dashboard staff
+            function renderMessagesList() {
+                const messages = getMessages();
+                messagesCountSpan.textContent = messages.length;
+                messagesListContainer.innerHTML = '';
+
+                if (messages.length === 0) {
+                    messagesListContainer.innerHTML = `
+                        <div class="text-center py-12 bg-prm-black/50 rounded-xl border border-white/10">
+                            <p class="text-gray-400 text-sm">Nessun messaggio presente al momento.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                messages.forEach(msg => {
+                    const card = document.createElement('div');
+                    card.className = 'p-5 rounded-xl bg-prm-black border border-white/15 hover:border-white/30 transition-all space-y-3';
+
+                    // Colore badge in base al motivo
+                    let badgeClass = 'bg-white/10 text-white border-white/20';
+                    if (msg.reason === 'Candidatura team') badgeClass = 'bg-prm-green/15 text-prm-green border-prm-green/40';
+                    if (msg.reason === 'Richiesta scrim o friendly match') badgeClass = 'bg-prm-red/15 text-prm-red border-prm-red/40';
+
+                    card.innerHTML = `
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div class="flex items-center gap-2.5">
+                                <span class="font-display font-bold text-lg text-white">${escapeHTML(msg.nickname)}</span>
+                                <span class="px-2.5 py-0.5 rounded-md border text-xs font-semibold ${badgeClass}">
+                                    ${escapeHTML(msg.reason)}
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs text-gray-500 font-mono">${escapeHTML(msg.date)}</span>
+                                <button data-delete-id="${msg.id}" title="Elimina messaggio" class="delete-msg-btn text-gray-500 hover:text-prm-red transition-colors cursor-pointer">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="text-xs bg-white/5 px-3 py-2 rounded-lg text-gray-300 flex flex-wrap gap-2 items-center">
+                            <span class="font-semibold text-gray-400">${escapeHTML(msg.contactMethod)}:</span>
+                            <span class="text-white font-mono select-all">${escapeHTML(msg.contactValue)}</span>
+                        </div>
+
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            ${escapeHTML(msg.details)}
+                        </p>
+                    `;
+
+                    messagesListContainer.appendChild(card);
+                });
+
+                // Aggiungi event listener per eliminazione messaggi
+                document.querySelectorAll('.delete-msg-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const idToDelete = e.currentTarget.getAttribute('data-delete-id');
+                        const updated = getMessages().filter(m => m.id !== idToDelete);
+                        saveMessages(updated);
+                        renderMessagesList();
+                    });
+                });
+            }
+
+            // Protezione XSS per dati inseriti dagli utenti
+            function escapeHTML(str) {
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+        });
+    </script>
+</body>
+</html>
